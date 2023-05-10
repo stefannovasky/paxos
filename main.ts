@@ -10,7 +10,9 @@ type Propose = {
     data: Value;
 };
 
-const nodes: { url: string }[] = [{ url: 'http://paxos_3001:3001' }, { url: 'http://paxos_3002:3002' }, { url: 'http://paxos_3003:3003' }];
+type Node = { url: string };
+
+const nodes: Node[] = [{ url: 'http://paxos_3001:3001' }, { url: 'http://paxos_3002:3002' }, { url: 'http://paxos_3003:3003' }];
 
 const sendPostRequest = async <T>(url: string, bodyJson: string): Promise<T> => {
     const response = await fetch(url,
@@ -137,4 +139,4 @@ app.post("/acceptor/handle-propose", (req, res) => {
 
 const port = process.env.PORT;
 
-app.listen(port, () => console.log("running on port: " + port)); 
+app.listen(port, () => console.log(`running on port: ${port}`)); 
