@@ -45,7 +45,7 @@ services:
       - '3003:3003'
     networks:
       - paxos-network
-    
+       
 networks: 
   paxos-network: 
     driver: bridge
