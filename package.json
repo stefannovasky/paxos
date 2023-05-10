@@ -1,0 +1,21 @@
+{
+  "name": "paxos",
+  "version": "1.0.0",
+  "description": "simple paxos implementation",
+  "main": "main.ts",
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [],
+  "author": "stefannovasky <stefannovasky@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^2.6.11"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node-fetch": "^2.6.3",
+    "typescript": "^5.0.4"
+  }
+}

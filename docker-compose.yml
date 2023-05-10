@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  paxos_3001:
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: paxos_3001
+    expose:
+      - '3001'
+    ports:
+      - '3001:3001'
+    networks:
+      - paxos-network
+
+  paxos_3002:
+    environment:
+      - NODE_ENV=development
+      - PORT=3002
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: paxos_3002
+    expose:
+      - '3002'
+    ports:
+      - '3002:3002'
+    networks:
+      - paxos-network
+    
+  paxos_3003:
+    environment:
+      - NODE_ENV=development
+      - PORT=3003
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: paxos_3003
+    expose:
+      - '3003'
+    ports:
+      - '3003:3003'
+    networks:
+      - paxos-network
+    
+networks: 
+  paxos-network: 
+    driver: bridge
