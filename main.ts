@@ -1,8 +1,8 @@
 import fetch from "node-fetch";
 import express from "express";
 
-type Result<Error, Success> =
-  | { status: "error"; message: Error }
+type Result<Success> =
+  | { status: "error"; message: string }
   | { status: "ok"; data: Success };
 
 type ProposeValue = {
@@ -22,7 +22,7 @@ const nodes: Node[] = [
   { url: 'http://paxos_3003:3003' }
 ];
 
-const sendPostRequest = async <T>(url: string, bodyJson: string): Promise<Result<string, T>> => {
+const sendPostRequest = async <T>(url: string, bodyJson: string): Promise<Result<T>> => {
   const response = await fetch(url,
     { body: bodyJson, method: "POST", headers: { "Content-Type": "application/json" } });
 
@@ -37,7 +37,7 @@ const sendPostRequest = async <T>(url: string, bodyJson: string): Promise<Result
 class Proposer {
   private id: number = 0;
 
-  public async prepare(proposeValue: string): Promise<Result<string, null>> {
+  public async prepare(proposeValue: string): Promise<Result<null>> {
     console.log(`[Proposer] starting preparation with value: ${proposeValue}`);
     this.id++;
 
@@ -100,7 +100,7 @@ class Acceptor {
   private maxId: number = 0;
   private acceptedPropose: Propose | null = null;
 
-  public prepare(prepareId: number): Result<string, ProposeValue> {
+  public prepare(prepareId: number): Result<ProposeValue> {
     console.log(`[Acceptor] starting preparation with id: ${prepareId}`)
 
     if (prepareId < this.maxId) {
@@ -119,7 +119,7 @@ class Acceptor {
     return { status: "ok", data: { id: prepareId, value: null } };
   }
 
-  public propose(propose: Propose): Result<string, ProposeValue> {
+  public propose(propose: Propose): Result<ProposeValue> {
     console.log(`[Acceptor] starting proposal with id: ${propose.data.id} and value: ${propose.data.value}`);
 
     if (this.maxId != propose.data.id) {
